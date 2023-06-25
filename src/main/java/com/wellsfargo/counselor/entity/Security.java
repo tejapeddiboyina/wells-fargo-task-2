@@ -1,9 +1,6 @@
 package com.wellsfargo.counselor.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -14,8 +11,8 @@ public class Security {
     @GeneratedValue()
     private long securityId;
 
-    @Column(nullable = false)
-    private long portfolioId;
+    @ManyToOne
+    private Portfolio portfolio;
 
     @Column(nullable = false)
     private String name;
@@ -27,15 +24,15 @@ public class Security {
     private String purchasePrice;
 
     @Column(nullable = false)
-    private Date purchaseDate;
+    private String purchaseDate;
 
     @Column(nullable = false)
     private long quantity;
 
     protected Security(){}
 
-    public Security(long portfolioId, String name, String category, String purchasePrice, Date purchaseDate, long quantity) {
-        this.portfolioId = portfolioId;
+    public Security(Portfolio portfolio, String name, String category, String purchasePrice, String purchaseDate, long quantity) {
+        this.portfolio = portfolio;
         this.name = name;
         this.category = category;
         this.purchasePrice = purchasePrice;
@@ -47,12 +44,12 @@ public class Security {
         return securityId;
     }
 
-    public long getPortfolioId() {
-        return portfolioId;
+    public Portfolio getPortfolio() {
+        return portfolio;
     }
 
-    public void setPortfolioId(long portfolioId) {
-        this.portfolioId = portfolioId;
+    public void setPortfolioId(Portfolio portfolio) {
+        this.portfolio = portfolio;
     }
 
     public String getName() {
@@ -79,11 +76,11 @@ public class Security {
         this.purchasePrice = purchasePrice;
     }
 
-    public Date getPurchaseDate() {
+    public String getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(Date purchaseDate) {
+    public void setPurchaseDate(String purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 
